@@ -1,0 +1,7 @@
+name: VTK.js viewer
+description: Visualize data using vtk.js
+version: 0.1.0
+npm:
+  dependencies:
+    vtk.js: 2.24.1
+    shader-loader: 1.3.0
