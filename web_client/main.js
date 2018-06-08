@@ -1,6 +1,7 @@
-import SurfaceView from './views/SurfaceView';
 import { wrap } from 'girder/utilities/PluginUtils';
 import ItemView from 'girder/views/body/ItemView';
+
+import SurfaceView from './views/SurfaceView';
 
 wrap(ItemView, 'render', function (render) {
     this.once('g:rendered', function () {
@@ -10,12 +11,13 @@ wrap(ItemView, 'render', function (render) {
         } else {
             return;
         }
-        if (vtkView === 'surface')
+        if (vtkView === 'surface') {
             new SurfaceView({
                 el: this.$('.g-vtk-viewer'),
                 parentView: this,
                 model: this.model
             }).render();
+        }
     }, this);
     return render.call(this);
 });

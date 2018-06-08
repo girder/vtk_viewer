@@ -1,24 +1,22 @@
 module.exports = function (config) {
+    // Rules from https://github.com/Kitware/vtk-js/blob/30dc011/Utilities/config/dependency.js#L21-L44
     config.module.rules.push({
-        resource: {
-            test: /node_modules(\/|\\)vtk\.js(\/|\\).*.glsl$/,
-            include: [/node_modules(\/|\\)vtk\.js(\/|\\)/]
-        },
-        use: [
-            'shader-loader'
-        ]
+        test: /\.glsl$/i,
+        include: /node_modules(\/|\\)vtk\.js(\/|\\)/,
+        loader: 'shader-loader'
     });
     config.module.rules.push({
-        resource: {
-            test: /node_modules(\/|\\)vtk\.js(\/|\\).*.js$/,
-            include: [/node_modules(\/|\\)vtk\.js(\/|\\)/]
-        },
+        test: /\.js$/,
+        include: /node_modules(\/|\\)vtk\.js(\/|\\)/,
+        loader: 'babel-loader?presets[]=env'
+    });
+    config.module.rules.push({
+        test: /\.worker\.js$/,
+        include: /node_modules(\/|\\)vtk\.js(\/|\\)/,
         use: [
             {
-                loader: 'babel-loader',
-                options: {
-                    presets: ['es2015']
-                }
+                loader: 'worker-loader',
+                options: { inline: true, fallback: false }
             }
         ]
     });
