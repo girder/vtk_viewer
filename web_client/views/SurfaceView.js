@@ -37,7 +37,7 @@ const SurfaceView = View.extend({
 
         reader.setUrl(this.model.downloadUrl(), {
             fullpath: true,
-            progressCallback: e => { this._loadProgress(e); }
+            progressCallback: (e) => { this._loadProgress(e); }
         }).then(() => {
             renderer.resetCamera();
             renderWindow.render();
@@ -45,7 +45,11 @@ const SurfaceView = View.extend({
             interactor.initialize();
             interactor.bindEvents(container[0]);
             this.$('.g-loading-area').remove();
+
+            return null;
         });
+
+        return this;
     },
 
     _loadProgress: function (e) {
